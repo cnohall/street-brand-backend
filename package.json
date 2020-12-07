@@ -1,0 +1,27 @@
+{
+  "name": "street-brand-backend",
+  "version": "1.0.0",
+  "description": "street-brand-backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha --require ts-node/register --watch-extensions ts 'test/**/*.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cnohall/street-brand-backend.git"
+  },
+  "author": "cnohall",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cnohall/street-brand-backend/issues"
+  },
+  "homepage": "https://github.com/cnohall/street-brand-backend#readme",
+  "dependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.0.4",
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "ts-node": "^9.1.0",
+    "typescript": "^4.1.2"
+  }
+}

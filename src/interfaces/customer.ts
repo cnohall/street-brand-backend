@@ -1,4 +1,4 @@
-export interface Customer {
+export default interface Customer {
     BirthDate:      string,
     GivenName:      string,
     MiddleName?:     string, // optional

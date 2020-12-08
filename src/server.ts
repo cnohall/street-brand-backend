@@ -4,7 +4,6 @@ import * as dotenv from "dotenv";
 import bodyParser from 'body-parser';
 import axios from 'axios';
 import cors from 'cors';
-
 //Local Files
 import {CustomerValidation} from './validation/customer-validation'
 import {InterpretResponse} from './services/interpret-response'
@@ -23,17 +22,17 @@ const axiosConfig = {
 };
 
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
-app.use(cors({
-  origin: true,
-  credentials: true,
-}));
+
 
 app.use(bodyParser.json())
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
+
+
 
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 

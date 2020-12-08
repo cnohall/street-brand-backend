@@ -44,7 +44,6 @@ app.post('/kyc',
   check('expiryDate').isLength({ min: 10, max: 10 }).trim().escape()],
   (req:any, res:any) => {
     let customer: Customer = req.body;
-    console.log(customer);
     const validationResult = CustomerValidation(customer);
     if (!validationResult.valid){
       res.json(validationResult.message)

@@ -4,7 +4,8 @@
   "description": "street-brand-backend",
   "main": "./src/server.ts",
   "scripts": {
-    "test": "mocha --require ts-node/register --watch-extensions ts 'test/**/*.ts'"
+    "test": "mocha --require ts-node/register --watch-extensions ts 'test/**/*.ts'",
+    "start": "ts-node src/server.ts"
   },
   "repository": {
     "type": "git",

@@ -4,10 +4,11 @@ import * as dotenv from "dotenv";
 import bodyParser from 'body-parser';
 import axios from 'axios'
 //Local Files
-import {CustomerValidation} from './validation/customer'
+import {CustomerValidation} from './validation/customer-validation'
 import {InterpretResponse} from './services/interpret-response'
 //Interfaces
-import Customer from './interfaces/customer'
+import Customer from './interfaces/customer-interface'
+import { check } from 'express-validator';
 
 
 dotenv.config();
@@ -21,6 +22,7 @@ const axiosConfig = {
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+app.use(express.json());
 
 app.use(bodyParser.json())
 app.listen(PORT, () => {
@@ -29,10 +31,18 @@ app.listen(PORT, () => {
 
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 
-app.post('/kyc', (req, res) => {
+app.post('/kyc', 
+  [check('birthDate').isLength({ min: 10, max: 10 }).trim().escape(),
+  check('givenName').isLength({ max: 100 }).trim().escape(),
+  check('middleName').isLength({ max: 100 }).trim().escape(),
+  check('familyName').isLength({ max: 100 }).trim().escape(),
+  check('licenceNumber').isLength({ max: 10 }).trim().escape(),
+  check('stateOfIssuance').isLength({ min: 2, max: 3 }).trim().escape(),
+  check('expiryDate').isLength({ min: 10, max: 10 }).trim().escape()],
+  (req:any, res:any) => {
     let customer: Customer = req.body;
     const validationResult = CustomerValidation(customer);
-
+    console.log(req.body.givenName)
     if (!validationResult.valid){
       res.json(validationResult.message)
     } else {

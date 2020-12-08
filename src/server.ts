@@ -42,7 +42,6 @@ app.post('/kyc',
   (req:any, res:any) => {
     let customer: Customer = req.body;
     const validationResult = CustomerValidation(customer);
-    console.log(req.body.givenName)
     if (!validationResult.valid){
       res.json(validationResult.message)
     } else {

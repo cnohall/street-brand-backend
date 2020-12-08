@@ -8,13 +8,15 @@ interface Response {
 interface Success { 
     'kycResult': boolean 
 } 
-
 interface VerifyDocumentError{ 
     'code': 'D' | 'S', 
     'message': 'Document Error' | 'Server Error' 
 }
+interface UnknownVerificationResultCode{ 
+    'error': 'Something is wrong with the verification result code'
+}
 
-function InterpretResponse (response:Response): Success | VerifyDocumentError{
+function InterpretResponse (response:Response): Success | VerifyDocumentError | UnknownVerificationResultCode{
     switch(response.verificationResultCode){
         case 'Y':
             return {"kycResult": true};
@@ -31,10 +33,7 @@ function InterpretResponse (response:Response): Success | VerifyDocumentError{
                 'message': 'Server Error'
             }
         default:
-            return {
-                'code': 'S',
-                'message': 'Server Error'
-            }
+            return {'error': 'Something is wrong with the verification result code'}
     }    
 }
 

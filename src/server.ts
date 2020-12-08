@@ -3,6 +3,9 @@ import express from 'express';
 import * as dotenv from "dotenv";
 import bodyParser from 'body-parser';
 import axios from 'axios'
+//Local Files
+import {CustomerValidation} from './validation/customer'
+import {InterpretResponse} from './services/interpret-response'
 //Interfaces
 import Customer from './interfaces/customer'
 
@@ -27,13 +30,20 @@ app.listen(PORT, () => {
 app.get('/', (req, res) => res.send('Express + TypeScript Server'));
 
 app.post('/kyc', (req, res) => {
-    let customer = req.body;
-    axios.post(URL, customer, axiosConfig)
-    .then((result) => {
-        res.json(result.data);
-    })
-    .catch((error)=> {
-        res.json(error);
-    })
+    let customer: Customer = req.body;
+    const validationResult = CustomerValidation(customer);
+
+    if (!validationResult.valid){
+      res.json(validationResult.message)
+    } else {
+      axios.post(URL, customer, axiosConfig)
+      .then((response) => {
+          const result = InterpretResponse(response.data);
+          res.json(result);
+      })
+      .catch((error)=> {
+          res.json(error);
+      })
+    }
 });
 

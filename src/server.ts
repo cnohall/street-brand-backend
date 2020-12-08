@@ -2,7 +2,9 @@
 import express from 'express';
 import * as dotenv from "dotenv";
 import bodyParser from 'body-parser';
-import axios from 'axios'
+import axios from 'axios';
+import cors from 'cors';
+
 //Local Files
 import {CustomerValidation} from './validation/customer-validation'
 import {InterpretResponse} from './services/interpret-response'
@@ -23,6 +25,7 @@ const axiosConfig = {
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
+app.use(cors())
 
 app.use(bodyParser.json())
 app.listen(PORT, () => {
@@ -41,6 +44,7 @@ app.post('/kyc',
   check('expiryDate').isLength({ min: 10, max: 10 }).trim().escape()],
   (req:any, res:any) => {
     let customer: Customer = req.body;
+    console.log(customer);
     const validationResult = CustomerValidation(customer);
     if (!validationResult.valid){
       res.json(validationResult.message)

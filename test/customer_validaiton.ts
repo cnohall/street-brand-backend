@@ -1,4 +1,4 @@
-import { isValidDate } from '../src/validation/customer';
+import { isValidDate } from '../src/validation/customer-validation';
 import {expect} from 'chai';
 
 describe('isValidDate', () => {

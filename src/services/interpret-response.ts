@@ -1,5 +1,4 @@
-import Customer from '../interfaces/customer'
-
+import Customer from '../interfaces/customer-interface'
 interface Response { 
     "verifyDocumentResult": {"type": string}, 
     "verificationRequestNumber": number, 

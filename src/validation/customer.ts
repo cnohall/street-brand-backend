@@ -6,7 +6,6 @@ interface validation {
 }
 
 function CustomerValidation (customer:Customer):validation{
-    console.log(customer)
     const nameMaxLength = 100; 
     if (!isValidDate(customer.birthDate) || (customer.expiryDate && !isValidDate(customer.expiryDate)) ){
         return {
@@ -26,7 +25,6 @@ function CustomerValidation (customer:Customer):validation{
 }
 
 function isValidDate(dateString:string) {
-    console.log(dateString)
     var regEx = /^\d{4}-\d{2}-\d{2}$/;
     if(!dateString.match(regEx)) return false;  // Invalid format
     var d = new Date(dateString);
